@@ -54,6 +54,7 @@ class App extends Component {
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
   };
 
   loginHandler = (event, authData) => {
@@ -80,7 +81,7 @@ class App extends Component {
         return res.json();
       })
       .then(resData => {
-        console.log(resData);
+        localStorage.setItem('userEmail', resData.email);
         this.setState({
           isAuth: true,
           token: resData.token,
@@ -222,6 +223,7 @@ class App extends Component {
                 onOpenMobileNav={this.mobileNavHandler.bind(this, true)}
                 onLogout={this.logoutHandler}
                 isAuth={this.state.isAuth}
+                email={localStorage.getItem('userEmail')}
               />
             </Toolbar>
           }
