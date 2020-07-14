@@ -66,6 +66,7 @@ class App extends Component {
           login(email: "${authData.email}", password: "${authData.password}") {
             token
             userId
+            email
           }
         }`
     }
@@ -89,8 +90,7 @@ class App extends Component {
         if (resData.errors) {
           throw new Error('User login failed!');
         }
-
-        localStorage.setItem('userEmail', resData.email);
+        localStorage.setItem('userEmail', resData.data.login.email);
         this.setState({
           isAuth: true,
           token: resData.data.login.token,
